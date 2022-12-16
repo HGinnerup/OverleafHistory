@@ -18,7 +18,7 @@ export class OverleafPathListener {
 
     private currentLocation:OverleafPath;
 
-    private timerId:number;
+    private timerId:NodeJS.Timeout;
     public startListening() {
         this.timerId = setInterval(() => {
             let newPosition = OverleafPath.getCurrentPath();
