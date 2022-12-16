@@ -18,3 +18,12 @@ Clicking backward or forward in the browser then navigates between the documents
 2. Add new userscript in Grease Monkey
 
 3. Replace contents of new script with contents of https://github.com/HGinnerup/OverleafHistory/raw/master/dist/overleaf-history-navigation.user.js
+
+
+## Setup with Userscripts for Safari
+1. Install Userscripts
+    https://apps.apple.com/us/app/userscripts/id1463298887
+
+2. Open https://github.com/HGinnerup/OverleafHistory/raw/master/dist/overleaf-history-navigation.user.js
+
+3. Click "Install"
