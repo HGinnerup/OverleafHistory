@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         overleaf-history-navigation
 // @namespace    https://github.com/HGinnerup/OverleafHistory
-// @version      1.0.4
+// @version      1.0.5
 // @description  A Greasemonkey/Tampermonkey script to add history navigation to Overleaf
 // @licence      GPL-3.0-or-later
 // @author       Henrik Ginnerup
