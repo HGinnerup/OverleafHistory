@@ -25,6 +25,7 @@ const HEADER = `// ==UserScript==
 // @grant        none
 // @updateURL    ${updateUrl}
 // @downloadURL  ${downloadUrl}
+// @run-at      document-end
 // ==/UserScript==
 
 `;

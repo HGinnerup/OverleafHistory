@@ -1,3 +1,6 @@
 import { OverleafManager } from "./overleafManager";
 
-let manager = new OverleafManager();
+setTimeout(() => {
+    let manager = new OverleafManager();
+}, 3000)
+
