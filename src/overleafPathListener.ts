@@ -28,11 +28,12 @@ export class OverleafPathListener {
     }
 
     private clickListener() {
-        console.log("Click clocked");
-        let newPosition = OverleafPath.getCurrentPath();
-        if(this.currentLocation != newPosition) {
-            this.currentLocation = newPosition;
-            this.callOnPathChangeFuncs(newPosition);
-        }
+        setTimeout(()=>{
+            let newPosition = OverleafPath.getCurrentPath();
+            if(this.currentLocation != newPosition) {
+                this.currentLocation = newPosition;
+                this.callOnPathChangeFuncs(newPosition);
+            }
+        }, 0);
     }
 }

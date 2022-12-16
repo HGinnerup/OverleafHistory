@@ -1,6 +1,6 @@
 {
   "name": "overleaf-history-navigation",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A Greasemonkey/Tampermonkey script to add history navigation to Overleaf",
   "main": "index.js",
   "scripts": {

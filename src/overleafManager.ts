@@ -33,15 +33,13 @@ export class OverleafManager {
     }
 
     private onPathChange(newPath:OverleafPath):void {
-        setTimeout(() => {
-            let pathStr = newPath.getPathString();
+        let pathStr = newPath.getPathString();
 
-            if(pathStr !== this.getPathString()) {
-                let newTitle = this.getNewTitle(newPath);
-                window.history.pushState(null, newTitle, `${window.location.pathname}#${pathStr}`)
-                document.title = newTitle;
-            }
-        }, 100);
+        if(pathStr !== this.getPathString()) {
+            let newTitle = this.getNewTitle(newPath);
+            window.history.pushState(null, newTitle, `${window.location.pathname}#${pathStr}`)
+            document.title = newTitle;
+        }
     }
 
     private onUserNavigation() {
