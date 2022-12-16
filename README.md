@@ -3,6 +3,8 @@ Enables back- and forward navigation of opened documents in Overleaf.
 
 Clicking backward or forward in the browser then navigates between the documents you have been in, as if they were different pages.
 
+Also allows you to share a link, to an exact file, with collaborators who also have this extension.
+
 ## Setup with Tamper Monkey for Chrome
 1. Install Tamper Monkey
     https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo
