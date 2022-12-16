@@ -17,20 +17,22 @@ export class OverleafPathListener {
 
 
     private currentLocation:OverleafPath;
-
-    private timerId:NodeJS.Timeout;
+    private clickNavigationListener:EventListener;
     public startListening() {
-        this.timerId = setInterval(() => {
-            let newPosition = OverleafPath.getCurrentPath();
-            if(this.currentLocation != newPosition) {
-                this.currentLocation = newPosition;
-                this.callOnPathChangeFuncs(newPosition);
-            }
-        }, 1000);
+        this.clickNavigationListener = () => this.clickListener();
+        document.querySelector("div.file-tree-inner").addEventListener("click", this.clickNavigationListener)
     }
 
     public stopListening() {
-        clearInterval(this.timerId);
+        document.querySelector("div.file-tree-inner").removeEventListener("click", this.clickNavigationListener)
     }
 
+    private clickListener() {
+        console.log("Click clocked");
+        let newPosition = OverleafPath.getCurrentPath();
+        if(this.currentLocation != newPosition) {
+            this.currentLocation = newPosition;
+            this.callOnPathChangeFuncs(newPosition);
+        }
+    }
 }

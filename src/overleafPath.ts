@@ -10,13 +10,12 @@ export class OverleafPath {
 
     parent?:OverleafPath;
     public getParent():OverleafPath {
-        if(this.parent === null) {
-            //@ts-ignore
-            if(element.parentElement.classList.contains("file-tree-list")) // Top element of entire file structure
+        if(!this.parent) {
+            if(this.element.parentElement.classList.contains("file-tree-list")) // Top element of entire file structure
                 return null;
         
             //@ts-ignore
-            this.parent = new OverleafPath(element.parentElement.previousSibling);
+            this.parent = new OverleafPath(this.element.parentElement.previousSibling);
         }
             
 
@@ -32,10 +31,10 @@ export class OverleafPath {
     }
 
     public getPathString():string {
-        if(this.parent === null)
+        if(!this.getParent())
             return this.getName();
         
-        return `${this.parent.getPathString()}/${this.getName}`;
+        return `${this.getParent().getPathString()}/${this.getName()}`;
     }
 
     public getIsLeaf():boolean {
@@ -44,6 +43,14 @@ export class OverleafPath {
 
     public static getCurrentPath():OverleafPath {
         return new OverleafPath(document.querySelector("li.selected[role=treeitem]"));
+    }
+
+    public static getPathFromString(pathStr:string):OverleafPath {
+
+        let elm = document.querySelector("div.file-tree-inner " + pathStr.split("/").map(label => `*>[aria-label='${label}']`).join("+"));
+
+        //@ts-ignore
+        return new OverleafPath(elm);
     }
 
     public equals(object:any):boolean {

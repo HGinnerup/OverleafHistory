@@ -5,47 +5,50 @@ import { OverleafPathListener } from "./overleafPathListener";
 export class OverleafManager {
 
     pathListener = new OverleafPathListener();
-    historyManager = new OverleafHistoryManager(OverleafPath.getCurrentPath());
+
+    private getPathString() {
+        return window.location.hash.substring(1);
+    }
 
     constructor() {
-        this.pathListener.addOnPathChange(path => {
-            if(!(path.equals(this.historyManager.getLocation()))) {
-                // this.historyManager.setLocation(path);
-                let strPath = path.getPathString();
-                window.history.pushState(path, `${document.title} - ${strPath}`, `${location.pathname}#${strPath}`)
-            }
-        });
+        if(window.location.hash == "")
+            window.location.hash = OverleafPath.getCurrentPath().getPathString();
+
+        this.pathListener.addOnPathChange(path => this.onPathChange(path));
+
+        window.addEventListener("popstate", _ => this.onUserNavigation(), false);
+
         this.pathListener.startListening();
     }
 
-    // (function(window, location) {
-    //     history.replaceState(null, document.title, location.pathname+"#!/stealingyourhistory");
-    //     history.pushState(null, document.title, location.pathname);
-    
-    //     window.addEventListener("popstate", function() {
-    //       if(location.hash === "#!/stealingyourhistory") {
-    //             history.replaceState(null, document.title, location.pathname);
-    //             setTimeout(function(){
-    //               location.replace("http://www.programadoresweb.net/");
-    //             },0);
-    //       }
-    //     }, false);
-    // }(window, location));
+    public getProjectName():string {
+        //@ts-ignore
+        return document.querySelector(".name").innerText;
+    }
 
+    public getNewTitle(path?:OverleafPath) {
+        if(!path)
+            return document.querySelector("title").innerText;
 
+        return `${this.getProjectName()} - ${path.getName()} - Overleaf`
+    }
 
+    private onPathChange(newPath:OverleafPath):void {
+        let pathStr = newPath.getPathString();
 
-    // private getCurrentFileNavigationElement():HTMLElement {
-    //     return document.querySelector("li.selected[role=treeitem]");
-    // }
+        if(pathStr !== this.getPathString()) {
+            let newTitle = this.getNewTitle(newPath);
+            window.history.pushState(null, newTitle, `${window.location.pathname}#${pathStr}`)
+            document.title = newTitle;
+        }
+    }
 
-    // private getFileNavigationElementParent(elm:HTMLElement):HTMLElement {
-    //     if(elm.parentElement.classList.contains("file-tree-list")) // Top element
-    //         return null;
-        
-    //     //@ts-ignore
-    //     return elm.parentElement.previousSibling;
-    // }
+    private onUserNavigation() {
+        this.pathListener.stopListening();
 
+        OverleafPath.getPathFromString(this.getPathString()).navigateTo();
+
+        this.pathListener.startListening();
+    }
 }
 
