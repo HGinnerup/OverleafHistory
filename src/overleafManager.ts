@@ -1,4 +1,3 @@
-import { OverleafHistoryManager } from "./overleafHistory";
 import { OverleafPath } from "./overleafPath";
 import { OverleafPathListener } from "./overleafPathListener";
 
